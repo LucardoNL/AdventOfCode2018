@@ -249,6 +249,8 @@ inputlines = ("rvefnvyxzbodgpnpkumawhijsc",
 "rvetqtyxzbojglnpkumewhijsc",
 "rvxfqtyxzbtdglnpkbmawhijsc")
 
+sortedlines = sorted(inputlines)
+
 def main():
     counttwos = count(2)
     countThrees = count(3)
@@ -267,4 +269,19 @@ def count(target):
             counter +=1
     return counter
 
-main()
+def comparelines():
+    for itemno in range(len(sortedlines)):
+        counter = 0
+        for letterno in range(len(sortedlines[itemno])):
+            lettera  = sortedlines[itemno][letterno]
+            letterb = sortedlines[(itemno + 1)][letterno]
+            if lettera != letterb:
+                counter += 1
+            else:
+                continue
+        if counter > 1:
+            continue
+        else:
+            print (sortedlines[itemno], sortedlines[itemno+1])
+
+comparelines()
