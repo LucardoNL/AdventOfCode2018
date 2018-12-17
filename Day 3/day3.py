@@ -1,26 +1,20 @@
 import re
+import numpy as np
 
 def mapdata():
     with open("C:\Box Sync\Luuk Leeuwenstein\LL. Misc\Codings\AdventOfCode2018\Day 3\input.txt") as file:
         data = file.readlines()
-
         # Mapping used from answer of u/mserrano on Reddit
         claims = map(lambda s: map(int, re.findall(r'-?\d+', s)), data)
         return claims
 
-def patchmapper(claims):
-    #patchmap = [{'xy': (int, int)}]
-    match = 0
-    coordinatelist = [[int, int]]
-    for (id, xstart, ystart, width, height) in claims:
-        for x in range(xstart, xstart+width):
-            for y in range(ystart, ystart+height):
-                if (x, y) not in coordinatelist:
-                    coordinatelist.append((x,y))
-                else:
-                    match += 1
-        coordinatelist.sort()
-        print("Claim: "+ str(id) +"\r")               
-    return match
+def mapfunc(claims):
+    canvas = np.zeros((1000,1000)) # Based on solution with Numpy of u/cole-k on Reddit
+    for claim in claims:
+        x,y,xw,yh = claim[1],claim[2],claim[3],claim[4]
+        canvas[x:x+xw, y:y+yh] += 1
+    return canvas
 
-print(patchmapper(mapdata()))
+claims = mapdata()
+canvas = mapfunc(claims)
+print (np.size(np.where(canvas >= 2)[0]))
