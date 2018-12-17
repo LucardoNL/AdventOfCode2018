@@ -9,15 +9,17 @@ def mapdata():
         return claims
 
 def patchmapper(claims):
-    patchmap = [{'xy': (int, int)}]
+    #patchmap = [{'xy': (int, int)}]
     match = 0
+    coordinatelist = [[int, int]]
     for (id, xstart, ystart, width, height) in claims:
         for x in range(xstart, xstart+width):
             for y in range(ystart, ystart+height):
-                if not any(dict['xy'] == (x, y) for dict in patchmap):
-                    patchmap.append({'xy':(x, y)})
+                if (x, y) not in coordinatelist:
+                    coordinatelist.append((x,y))
                 else:
                     match += 1
+        coordinatelist.sort()
         print("Claim: "+ str(id) +"\r")               
     return match
 
