@@ -15,6 +15,15 @@ def mapfunc(claims):
         canvas[x:x+xw, y:y+yh] += 1
     return canvas
 
+def findsingleclaim(canvas, claims):
+    for claim in claims:
+        x,y,xw,yh = claim[1],claim[2],claim[3],claim[4]
+        if (canvas[x:x+xw, y:y+yh] > 1).any():
+            continue
+        else:
+            return claim[0]
+
 claims = mapdata()
 canvas = mapfunc(claims)
-print (np.size(np.where(canvas >= 2)[0]))
+# Solution p1: print (np.size(np.where(canvas >= 2)[0]))
+print(findsingleclaim(canvas, claims))
